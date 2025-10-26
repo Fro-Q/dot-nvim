@@ -1,0 +1,14 @@
+{
+  "Disable": {
+    "prefix": "disable",
+    "body": [
+      "enable = false,"
+    ]
+  },
+  "Disabled": {
+    "prefix": "disabled",
+    "body": [
+      "enabled = false"
+    ]
+  }
+}

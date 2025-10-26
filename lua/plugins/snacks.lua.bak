@@ -1,0 +1,13 @@
+if vim.g.vscode then
+  return {}
+else
+  return {
+    {
+      "folke/snacks.nvim",
+      lazy = false,
+      config = function()
+        require "configs.snacks"
+      end,
+    }
+  }
+end

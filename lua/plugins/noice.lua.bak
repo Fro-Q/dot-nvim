@@ -1,0 +1,91 @@
+if vim.g.vscode then
+  return {}
+else
+  return {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim"
+    },
+    opts = {
+      views = {
+        cmdline_popup = {
+          border = {
+            style = 'single',
+            padding = { 0, 0 }
+          }
+        }
+      },
+      cmdline = {
+        view = "cmdline_popup",
+        ---@type table<string, CmdlineFormat>
+        -- format = {
+        --   cmdline = {
+        --     name = "Command Line",
+        --     kind = "search",
+        --     view = "cmdline",
+        --     icon = ":",
+        --     title = "CMD"
+        --   }
+        -- }
+      },
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+        },
+        hover = {
+          enabled = true,
+          silent = false, -- set to true to not show a message if hover is not available
+          view = nil, -- when nil, use defaults from documentation
+          ---@type NoiceViewOptions
+          opts = {
+            border = "single",
+            max_width = 50,
+            max_height = 25,
+            focusable = true,
+            source = true
+          }, -- merged with defaults from documentation
+        },
+        message = {
+          -- Messages shown by lsp servers
+          enabled = true,
+          view = "notify",
+          opts = {},
+        },
+      },
+      markdown = {
+        hover = {
+          ["|(%S-)|"] = vim.cmd.help, -- vim help links
+          ["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links
+        },
+        highlights = {
+          ["|%S-|"] = "@text.reference",
+          ["@%S+"] = "@parameter",
+          ["^%s*(Parameters:)"] = "@text.title",
+          ["^%s*(Return:)"] = "@text.title",
+          ["^%s*(See also:)"] = "@text.title",
+          ["{%S-}"] = "@parameter",
+        },
+      },
+      routes = {
+        {
+          filter = {
+            event = "msg_show",
+            any = {
+              { find = "%d+L, %d+B" },
+              { find = "; after #%d+" },
+              { find = "; before #%d+" },
+            },
+          },
+          view = "mini",
+        },
+      },
+      -- presets = {
+      --   bottom_search = true,
+      --   command_palette = true,
+      --   long_message_to_split = true,
+      -- },
+    }
+  }
+end
