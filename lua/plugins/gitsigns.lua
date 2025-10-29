@@ -53,6 +53,11 @@ return {
   },
   config = function(_, opts)
 
+    -- If not a git repo, don't load gitsigns
+    if vim.fn.systemlist("git rev-parse --is-inside-work-tree")[1] ~= "true" then
+      return
+    end
+
     local gs = require("gitsigns")
 
     local map = require("utils").map
