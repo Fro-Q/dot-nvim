@@ -3,6 +3,11 @@ local opt = vim.opt
 local g = vim.g
 local o = vim.o
 
+-- Get neovim version
+if vim.fn.has("nvim-0.12") == 1 then
+  o.pumborder = "single"
+end
+
 opt.number = true
 opt.relativenumber = true
 opt.signcolumn = "yes"
@@ -93,3 +98,5 @@ end
 
 opt.foldtext = "v:lua.custom_foldtext()"
 
+
+require("harpoon"):extend(require("harpoon.extensions").builtins.highlight_current_file())

@@ -19,7 +19,7 @@ return {
       reset       = '.',
       reveal_cwd  = '@',
       show_help   = 'g?',
-      synchronize = '=',
+      synchronize = '<cr>',
       trim_left   = '<',
       trim_right  = '>',
     },
@@ -41,5 +41,28 @@ return {
       -- Width of preview window
       width_preview = 30,
     },
-  }
+  },
+  config = function(_, opts)
+
+    local MiniFiles = require("mini.files")
+
+    local map = require("utils").map
+    local vscode_action = require("utils").vscode_action
+
+    MiniFiles.setup(opts)
+
+    -- File explorer mapping
+    map("n", "<leader>e", vscode_action(
+      function()
+        local buf_name = vim.api.nvim_buf_get_name(0)
+        -- If buf_name is not in cwd, open cwd instead
+        if not vim.startswith(buf_name, vim.loop.cwd()) then
+          buf_name = vim.loop.cwd()
+        end
+        MiniFiles.open(buf_name)
+        MiniFiles.reveal_cwd()
+      end,
+      "workbench.explorer.fileView.focus"
+    ), "File explorer")
+  end,
 }

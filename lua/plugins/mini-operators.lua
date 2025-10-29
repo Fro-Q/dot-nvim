@@ -1,5 +1,5 @@
 return {
-  "nvim-mini/mini.pairs",
+  "nvim-mini/mini.operators",
   version = false,
   lazy = false,
   opts = {}

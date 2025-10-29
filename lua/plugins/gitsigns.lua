@@ -1,6 +1,6 @@
 return {
   "lewis6991/gitsigns.nvim",
-  lazy = false,
+  event = { "BufReadPre", "BufNewFile" },
   opts = {
     -- signs = {
     --   add          = { text = '┃' },
@@ -19,7 +19,7 @@ return {
     --   untracked    = { text = '┆' },
     -- },
     -- signs_staged_enable = true,
-    -- signcolumn = true,
+    signcolumn = false,
     numhl = true,
     -- linehl = false,
     -- word_diff = false,
@@ -49,6 +49,39 @@ return {
       row = 0,
       col = 1,
     },
-  },
-}
 
+  },
+  config = function(_, opts)
+
+    local gs = require("gitsigns")
+
+    local map = require("utils").map
+    local vscode_action = require("utils").vscode_action
+
+    gs.setup(opts)
+
+    -- Navigation
+    map("n", "]h", vscode_action(
+      function()
+        ---@diagnostic disable-next-line: param-type-mismatch
+        gs.nav_hunk("next", { target = "all" })
+      end,
+      "workbench.action.editor.nextChange"
+    ), "Next Hunk")
+
+    map("n", "[h", vscode_action(
+      function()
+        ---@diagnostic disable-next-line: param-type-mismatch
+        gs.nav_hunk("prev", { target = "all" })
+      end,
+      "workbench.action.editor.previousChange"
+    ), "Next Hunk")
+
+    map("n", "<leader>hs", vscode_action(
+      function()
+        gs.stage_hunk()
+      end,
+      ""
+    ), "Stage hunk")
+  end,
+}

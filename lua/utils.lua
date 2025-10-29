@@ -72,8 +72,6 @@ M.vscode_call = function(native, cmd, opts)
   end
 end
 
-
----
 ---@param cmd function
 ---@param config string
 M.pick_with_rg_config = function(cmd, config)
@@ -83,6 +81,5 @@ M.pick_with_rg_config = function(cmd, config)
   cmd()
   vim.uv.os_setenv(rg_env, cached_rg_config)
 end
-
 
 return M

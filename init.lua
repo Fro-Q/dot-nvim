@@ -32,6 +32,8 @@ require "autocmds"
 require "filetypes"
 require "options"
 
+_G.Utils = require("utils")
+
 vim.schedule(function()
   require "mappings"
 end)

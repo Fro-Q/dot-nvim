@@ -272,7 +272,7 @@ local servers = {
 -- Set up all server
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 if not vim.g.vscode then
-  capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
+  -- capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 end
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,

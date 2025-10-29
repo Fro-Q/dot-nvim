@@ -94,3 +94,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     require("conform").format({ bufnr = args.buf })
   end,
 })
+
+-- when leave, write a session
+vim.api.nvim_create_autocmd("ExitPre", {
+  callback = function(args)
+    require("mini.sessions").write("Session.vim")
+  end
+})
